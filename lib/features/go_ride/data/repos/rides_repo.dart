@@ -69,7 +69,7 @@ class RidesRepo {
         },
       );
       if (response.data['success'] == true) {
-        return Right(response.data['message']);
+        return Right(response.data['data']['id']);
       } else {
         return Left(ServerFailure(response.data['message']));
       }
