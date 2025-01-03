@@ -27,6 +27,7 @@ class DynamicFormField extends StatefulWidget {
   final Widget? prefixIcon;
   final int? maxLines;
   final bool readOnly;
+  final TextInputAction? textInputAction;
   final void Function(PointerDownEvent)? onTapOutside;
 
   const DynamicFormField({
@@ -35,6 +36,7 @@ class DynamicFormField extends StatefulWidget {
     this.keyboardType,
     this.onChange,
     this.onTap,
+    this.textInputAction,
     this.readOnly = false,
     this.obscureText = false,
     this.isFilled = true,
@@ -80,6 +82,7 @@ class _DynamicFormFieldState extends State<DynamicFormField> {
           (pointerDownEvent) {
             FocusScope.of(context).unfocus();
           },
+      textInputAction: widget.textInputAction,
       onTap: widget.onTap,
       readOnly: widget.readOnly,
       onChanged: widget.onChange,

@@ -174,6 +174,7 @@ class _GoRideBodyState extends ConsumerState<GoRideBody> {
                                   )
                                 : Flexible(
                                     child: DynamicFormField(
+                                      textInputAction: TextInputAction.done,
                                       controller: whereToController,
                                       hintText: 'Where to?',
                                       prefixIcon: const Icon(Icons.search),
@@ -238,6 +239,7 @@ class _GoRideBodyState extends ConsumerState<GoRideBody> {
                                       const SizedBox(height: 12),
                                       DynamicFormField(
                                         hintText: 'Where to?',
+                                        textInputAction: TextInputAction.done,
                                         controller: whereToController,
                                         focusNode: whereToFocusNode,
                                         onFieldSubmitted: (p0) {
@@ -326,7 +328,6 @@ class _GoRideBodyState extends ConsumerState<GoRideBody> {
                   case RideState.orderedDriver:
                     goRideNotifier.cancelRide();
                     break;
-                  
                 }
               },
             ),
