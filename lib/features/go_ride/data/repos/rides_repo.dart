@@ -50,7 +50,7 @@ class RidesRepo {
     }
   }
 
-  Future<Either<Failure, String>> createRide({
+  Future<Either<Failure, int>> createRide({
     required Place dropOffLocation,
     required Place pickUpLocation,
     required double fare,
@@ -83,18 +83,18 @@ class RidesRepo {
   }
 
   Future<Either<Failure, String>> cancelRide({
-    required int driverId,
+    required int rideId,
     required String token,
   }) async {
     try {
       final response = await DioHelper.postData(
-        path: ApiConstants.cancelRide(driverId.toString()),
+        path: ApiConstants.cancelRide(rideId.toString()),
         token: token,
-        
       );
       if (response.data['success'] == true) {
         return Right(response.data['message']);
       } else {
+        log(response.data['message']);
         return Left(ServerFailure(response.data['message']));
       }
     } on DioException catch (e) {
@@ -102,7 +102,7 @@ class RidesRepo {
       return const Left(MessageFailure("Error sending request"));
     } catch (e) {
       log(e.toString());
-      return const Left(MessageFailure("Error formatting request"));
+      return const Left(MessageFailure("An error occured"));
     }
   }
 }

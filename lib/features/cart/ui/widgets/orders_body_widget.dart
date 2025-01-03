@@ -92,6 +92,7 @@ class _OrdersBodyWidgetState extends ConsumerState<OrdersBodyWidget>
                       (index) {
                         return OrderHistoryWidget(
                           orderModel: ongoingList[index],
+                          isOngoing: true,
                         );
                       },
                     ),
@@ -102,6 +103,7 @@ class _OrdersBodyWidgetState extends ConsumerState<OrdersBodyWidget>
                       (index) {
                         return OrderHistoryWidget(
                           orderModel: historyList[index],
+                          isOngoing: false,
                         );
                       },
                     ),

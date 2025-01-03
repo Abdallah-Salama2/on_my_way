@@ -18,7 +18,7 @@ class TripTrackingSheet extends ConsumerWidget {
 
     final driverData = goRideState.driversEntity?.drivers.firstWhereOrNull(
       (element) {
-        return goRideState.chosenDriverId == element.id;
+        return goRideState.rideId == element.id;
       },
     );
     return Align(
@@ -349,7 +349,6 @@ class TripTrackingSheet extends ConsumerWidget {
                           ),
                           onPressed: () {
                             goRideStateNotifier.cancelRide();
-                            
                           },
                           child: const Text('Cancel'),
                         ),

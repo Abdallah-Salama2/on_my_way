@@ -10,7 +10,7 @@ class ApiConstants {
 
   static const getDrivers = "$baseUrl/get-drivers";
   static const createRide = '/create-ride';
-  static String cancelRide(String id) => '/rides/$id/cancel';
+  static String cancelRide(String rideId) => '/rides/$rideId/cancel';
 
   static const getItems = "/items";
   static String showSingleItem(String id) => "/items/$id";

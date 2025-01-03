@@ -11,7 +11,6 @@ enum RideState {
   choosingWhereTo,
   orderingDriver,
   orderedDriver,
-  
 }
 
 class GoRideState extends Equatable {
@@ -26,7 +25,7 @@ class GoRideState extends Equatable {
   final RequestState routeSearchRequestState;
   final RequestState requestState;
   final DriversEntity? driversEntity;
-  final int chosenDriverId;
+  final int rideId;
 
   const GoRideState({
     this.routeData,
@@ -34,7 +33,7 @@ class GoRideState extends Equatable {
     this.startPlace,
     this.mapController,
     this.driversEntity,
-    this.chosenDriverId = -1,
+    this.rideId = -1,
     this.rideState = RideState.choosingWhereTo,
     this.placeSearchRequestState = RequestState.initial,
     this.routeSearchRequestState = RequestState.initial,
@@ -55,7 +54,7 @@ class GoRideState extends Equatable {
     List<Place>? placeSearchResult,
     DriversEntity? driversEntity,
     String? message,
-    int? chosenDriverId,
+    int? rideId,
   }) {
     return GoRideState(
       routeData: routeData ?? this.routeData,
@@ -71,7 +70,7 @@ class GoRideState extends Equatable {
       requestState: requestState ?? this.requestState,
       placeSearchResult: placeSearchResult ?? this.placeSearchResult,
       message: message ?? this.message,
-      chosenDriverId: chosenDriverId ?? this.chosenDriverId,
+      rideId: rideId ?? this.rideId,
     );
   }
 
@@ -85,8 +84,7 @@ class GoRideState extends Equatable {
       placeSearchRequestState,
       routeSearchRequestState,
       requestState,
-      // placeSearchResult,
-      chosenDriverId,
+      rideId,
       message,
       driversEntity,
     ];

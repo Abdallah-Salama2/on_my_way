@@ -164,7 +164,7 @@ void main() async {
     );
 
     final cancelRideResult = await ridesRepo.cancelRide(
-      driverId: 4,
+      rideId: 4,
       token: "3|CRv2jEdsNyfBAnuD99AQgoguDYur7qVNkYzZvpWb20c2016f",
     );
 

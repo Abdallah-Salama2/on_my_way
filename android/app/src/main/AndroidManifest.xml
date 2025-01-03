@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="on_my_way"
+        android:label="On My Way"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

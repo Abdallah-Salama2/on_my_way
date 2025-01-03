@@ -34,7 +34,7 @@ class GoRideStateProvider extends Notifier<GoRideState> {
       state = state.copyWith(requestState: RequestState.loading);
 
       final result = await _ridesRepo.cancelRide(
-        driverId: state.chosenDriverId,
+        rideId: state.rideId,
         token: _authState.authEntity!.data.token,
       );
 
@@ -50,7 +50,7 @@ class GoRideStateProvider extends Notifier<GoRideState> {
           state = state.copyWith(
             requestState: RequestState.loaded,
             rideState: RideState.orderingDriver,
-            chosenDriverId: -1,
+            rideId: -1,
             message: r,
           );
         },
@@ -71,10 +71,10 @@ class GoRideStateProvider extends Notifier<GoRideState> {
       final result = await _ridesRepo.createRide(
         dropOffLocation: state.startPlace!,
         pickUpLocation: state.endPlace!,
-        driverId: state.chosenDriverId,
+        driverId: state.rideId,
         fare: state.driversEntity!.drivers
             .firstWhereOrNull(
-              (element) => element.id == state.chosenDriverId,
+              (element) => element.id == state.rideId,
             )!
             .price,
         token: _authState.authEntity!.data.token,
@@ -91,12 +91,10 @@ class GoRideStateProvider extends Notifier<GoRideState> {
         (r) {
           state = state.copyWith(
             requestState: RequestState.loaded,
-            message: r,
+            rideId: r,
             rideState: RideState.orderedDriver,
           );
-          if (r.isEmpty) {
-            FtoastHelper.showSuccessToast("No drivers found at the moment");
-          }
+          
         },
       );
     } catch (e) {
@@ -137,6 +135,9 @@ class GoRideStateProvider extends Notifier<GoRideState> {
             requestState: RequestState.loaded,
             message: '',
           );
+          if (r.drivers.isEmpty) {
+            FtoastHelper.showSuccessToast("No drivers found at the moment");
+          }
         },
       );
     } catch (e) {
@@ -216,7 +217,7 @@ class GoRideStateProvider extends Notifier<GoRideState> {
   }
 
   void selectDriver(int id) {
-    state = state.copyWith(chosenDriverId: id);
+    state = state.copyWith(rideId: id);
   }
 
   void initializeMapController(MapController mapController) {

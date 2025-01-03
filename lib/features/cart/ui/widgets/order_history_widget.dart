@@ -4,10 +4,12 @@ import 'package:on_my_way/features/cart/data/models/order.dart';
 
 class OrderHistoryWidget extends StatelessWidget {
   final OrderModel orderModel;
+  final bool isOngoing;
 
   const OrderHistoryWidget({
     super.key,
     required this.orderModel,
+    required this.isOngoing,
   });
 
   @override
@@ -31,7 +33,7 @@ class OrderHistoryWidget extends StatelessWidget {
                   borderRadius: BorderRadius.circular(8),
                 ),
               ),
-              SizedBox(width: 8),
+              const SizedBox(width: 8),
               Expanded(
                 child: Column(
                   children: [
@@ -60,18 +62,18 @@ class OrderHistoryWidget extends StatelessWidget {
                           style: textTheme.bodyLarge
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(width: 4),
-                        SizedBox(
+                        const SizedBox(width: 4),
+                        const SizedBox(
                           height: 20,
                           child: VerticalDivider(
                             color: AppColors.antiFlashWhite,
                             thickness: 1,
                           ),
                         ),
-                        SizedBox(width: 4),
+                        const SizedBox(width: 4),
                         Text(
                           "${orderModel.items.length} Items",
-                          style: TextStyle(
+                          style: const TextStyle(
                             color: AppColors.pumpkinOrange,
                           ),
                         )
@@ -82,42 +84,56 @@ class OrderHistoryWidget extends StatelessWidget {
               )
             ],
           ),
-          SizedBox(height: 12),
-          Row(
-            children: [
-              Expanded(
-                flex: 3,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  onPressed: () {},
-                  child: Text('Track Order'),
-                ),
-              ),
-              Spacer(flex: 1),
-              Expanded(
-                flex: 3,
-                child: ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: AppColors.white,
-                    foregroundColor: AppColors.pumpkinOrange,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(8),
-                      side: BorderSide(
-                        color: AppColors.pumpkinOrange,
-                        width: 1,
+          const SizedBox(height: 12),
+          if (isOngoing)
+            Row(
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(41),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
                       ),
                     ),
+                    onPressed: () {},
+                    child: const Text('Track Order'),
                   ),
-                  child: Text('Cancel'),
+                ),
+                const Spacer(flex: 1),
+                Expanded(
+                  flex: 3,
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: const Size.fromHeight(41),
+                      backgroundColor: AppColors.white,
+                      foregroundColor: AppColors.pumpkinOrange,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                        side: const BorderSide(
+                          color: AppColors.pumpkinOrange,
+                          width: 1,
+                        ),
+                      ),
+                    ),
+                    child: const Text('Cancel'),
+                  ),
+                ),
+              ],
+            )
+          else
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(41),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ),
-            ],
-          )
+              child: const Text('Re-order'),
+            )
         ],
       ),
     );

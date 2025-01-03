@@ -9,7 +9,6 @@ import '../../../home/providers/home_state_provider.dart';
 import '../../data/models/driver.dart';
 import '../../providers/go_ride_provider.dart';
 
-
 class OrderingDriverSheet extends ConsumerWidget {
   const OrderingDriverSheet({super.key});
 
@@ -74,12 +73,12 @@ class OrderingDriverSheet extends ConsumerWidget {
                         height: 2,
                       ),
                       const SizedBox(height: 12),
-                      if(goRideState.driversEntity?.drivers.isEmpty ?? true)
+                      if (goRideState.driversEntity?.drivers.isEmpty ?? true)
                         const Text('No drivers found at the moment'),
                       for (final Driver driver
                           in goRideState.driversEntity?.drivers ?? [])
                         ColoredBox(
-                          color: driver.id == goRideState.chosenDriverId
+                          color: driver.id == goRideState.rideId
                               ? AppColors.peachPuff
                               : Colors.white,
                           child: ListTile(
@@ -162,11 +161,10 @@ class OrderingDriverSheet extends ConsumerWidget {
                               ),
                               onPressed: goRideState.requestState.isLoading ||
                                       goRideState.requestState.hasError ||
-                                      goRideState.chosenDriverId == -1
+                                      goRideState.rideId == -1
                                   ? null
                                   : () {
-                                      goRideNotifier.createRide()
-                                      ;
+                                      goRideNotifier.createRide();
                                     },
                               child: Row(
                                 children: [
@@ -185,7 +183,7 @@ class OrderingDriverSheet extends ConsumerWidget {
                                             .firstWhereOrNull(
                                               (element) =>
                                                   element.id ==
-                                                  goRideState.chosenDriverId,
+                                                  goRideState.rideId,
                                             )
                                             ?.price
                                             .toString() ??
