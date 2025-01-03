@@ -28,6 +28,7 @@ class AppColors {
 
   /// Image placeholder and unselected [Text]
   static const cadetGrey = Color(0xFF98A8B8);
+  static const macaroniAndCheese = Color(0xFFF9B48A);
 
   /// Used for offwhite backgrounds
   static const antiFlashWhite = Color(0xFFF2F2F2);

@@ -3,6 +3,8 @@ import 'package:on_my_way/features/authentication/ui/login_screen.dart';
 import 'package:on_my_way/features/authentication/ui/signup_screen.dart';
 import 'package:on_my_way/features/authentication/ui/forgot_password_screen.dart';
 import 'package:on_my_way/features/cart/ui/cart_screen.dart';
+import 'package:on_my_way/features/cart/ui/orders_screen.dart';
+import 'package:on_my_way/features/cart/ui/payment_screen.dart';
 import 'package:on_my_way/features/go_food/ui/category_items_screen.dart';
 
 import 'package:on_my_way/features/go_food/ui/restaurant_screen.dart';
@@ -10,6 +12,7 @@ import 'package:on_my_way/features/home/ui/choose_service_screen.dart';
 import 'package:on_my_way/features/home/ui/home_screen.dart';
 import 'package:on_my_way/features/onboarding/ui/onboarding_screen.dart';
 import 'package:on_my_way/features/settings/ui/edit_profile_screen.dart';
+import 'package:on_my_way/features/settings/ui/favorites_screen.dart';
 import 'package:on_my_way/features/settings/ui/personal_info_screen.dart';
 
 class AppRoutes {
@@ -30,6 +33,9 @@ class AppRoutes {
   static const String restaurantScreen = '/restaurant';
   static const String cartScreen = '/cart';
   static const String categoryItemsScreen = '/category-items';
+  static const String paymentScreen = '/payment';
+  static const String ordersScreen = '/orders';
+  static const String favoritesScreen = '/favorites';
 
   final Map<String, Widget Function(BuildContext context)> routes = {
     onboardingScreen: (context) => const OnboardingScreen(),
@@ -43,5 +49,8 @@ class AppRoutes {
     restaurantScreen: (context) => const RestaurantScreen(),
     cartScreen: (context) => const CartScreen(),
     categoryItemsScreen: (context) => const CategoryItemsScreen(),
+    paymentScreen: (context) => const PaymentScreen(),
+    ordersScreen: (context) => const OrdersScreen(),
+    favoritesScreen: (context) => const FavoritesScreen(),
   };
 }

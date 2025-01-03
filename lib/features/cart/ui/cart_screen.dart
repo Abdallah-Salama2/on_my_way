@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_my_way/core/shared/widgets/dynamic_form_field.dart';
 import 'package:on_my_way/core/shared/widgets/icon_button_widget.dart';
+import 'package:on_my_way/core/utils/app_routes.dart';
 import 'package:on_my_way/core/utils/extensions.dart';
 import 'package:on_my_way/features/authentication/providers/auth_provider.dart';
 import 'package:on_my_way/features/cart/providers/cart_provider.dart';
@@ -68,7 +69,7 @@ class CartScreen extends ConsumerWidget {
                           width: 136,
                           clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
-                            color: AppColors.pumpkinOrange.withOpacity(0.5),
+                            color: AppColors.macaroniAndCheese,
                             boxShadow: const [AppColors.boxShadowBlack26],
                             borderRadius: BorderRadius.circular(25),
                           ),
@@ -235,7 +236,12 @@ class CartScreen extends ConsumerWidget {
                           ),
                           const SizedBox(height: 18),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: cartData.items.isEmpty
+                                ? null
+                                : () {
+                                    Navigator.of(context)
+                                        .pushNamed(AppRoutes.paymentScreen);
+                                  },
                             style: ElevatedButton.styleFrom(
                               fixedSize: const Size.fromHeight(62),
                             ),

@@ -28,11 +28,13 @@ class DioHelper {
   static Future<Response> getData({
     required String path,
     Map<String, dynamic>? queryParameters,
+    Map<String, dynamic>? body,
     String? token,
   }) async {
     final response = _dio!.get(
       path,
       queryParameters: queryParameters,
+      data: body,
       options: Options(
         headers: {
           "Authorization": token == null ? "" : "Bearer $token",

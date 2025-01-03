@@ -71,7 +71,6 @@ class OnMyWayApp extends ConsumerWidget {
           ),
         ),
       ),
-      
     );
   }
 }

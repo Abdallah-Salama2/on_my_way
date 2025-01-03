@@ -59,6 +59,10 @@ class Product extends Equatable {
     );
   }
 
+  
+  @override
+  bool? get stringify => false;
+
   @override
   List<Object?> get props => [
         id,

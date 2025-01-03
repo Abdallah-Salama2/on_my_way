@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:on_my_way/features/go_food/providers/favorites/favorites_provider.dart';
 
 import '../../../core/shared/widgets/back_button.dart';
 import '../../../core/shared/widgets/dynamic_form_field.dart';
 import '../../../core/styles/app_colors.dart';
 import '../../cart/ui/widgets/cart_button_widget.dart';
-import '../providers/categories/categories_provider.dart';
-import 'widgets/item_card.dart';
+import '../../go_food/ui/widgets/item_card.dart';
 
-class CategoryItemsScreen extends ConsumerStatefulWidget {
-  const CategoryItemsScreen({super.key});
+class FavoritesScreen extends ConsumerStatefulWidget {
+  const FavoritesScreen({super.key});
 
   @override
-  ConsumerState<CategoryItemsScreen> createState() =>
+  ConsumerState<FavoritesScreen> createState() =>
       _CategoryItemsScreenState();
 }
 
-class _CategoryItemsScreenState extends ConsumerState<CategoryItemsScreen> {
+class _CategoryItemsScreenState extends ConsumerState<FavoritesScreen> {
   final searchController = TextEditingController();
 
   @override
@@ -30,13 +30,12 @@ class _CategoryItemsScreenState extends ConsumerState<CategoryItemsScreen> {
     final textTheme = Theme.of(context).textTheme;
     const sliverVerticalSpace = SliverToBoxAdapter(child: SizedBox(height: 12));
 
-    final categoriesState = ref.watch(categoriesProvider);
+    final favoritesState = ref.watch(favoritesProvider);
     return Scaffold(
-      body: categoriesState.when(
+      body: favoritesState.when(
         data: (data) {
           final filterQuery = searchController.text;
-          final filteredList =
-              data.categoryItemsEntity.products.where((category) {
+          final filteredList = data.favoritesEntity.items.where((category) {
             return category.name
                 .toLowerCase()
                 .contains(filterQuery.toLowerCase());
@@ -44,25 +43,25 @@ class _CategoryItemsScreenState extends ConsumerState<CategoryItemsScreen> {
           return CustomScrollView(
             clipBehavior: Clip.none,
             slivers: [
-              SliverAppBar(
+              const SliverAppBar(
                 floating: false,
                 pinned: false,
                 snap: false,
                 backgroundColor: AppColors.cadetGrey,
                 surfaceTintColor: Colors.transparent,
-                title: Text(data.categoryItemsEntity.name),
+                title: Text('Favorites'),
                 clipBehavior: Clip.antiAlias,
-                leading: const Row(
+                leading: Row(
                   children: [
                     SizedBox(width: 8),
                     BackButtonWidget(),
                   ],
                 ),
-                actions: const [
+                actions: [
                   CartButtonWidget(invertColors: true),
                   SizedBox(width: 8),
                 ],
-                shape: const RoundedRectangleBorder(
+                shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
                     bottom: Radius.circular(30),
                   ),
@@ -107,7 +106,7 @@ class _CategoryItemsScreenState extends ConsumerState<CategoryItemsScreen> {
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   child: Text(
                     searchController.text.isEmpty
-                        ? 'All ${data.categoryItemsEntity.name}'
+                        ? 'All Favorites'
                         : "Search results",
                     style: textTheme.titleLarge,
                   ),
@@ -135,7 +134,7 @@ class _CategoryItemsScreenState extends ConsumerState<CategoryItemsScreen> {
             ],
           );
         },
-        error: (error, stackTrace) =>const Center(child:  Text("Error loading items")),
+        error: (error, stackTrace) =>const Center(child:  Text("Error loading favorites")),
         loading: () => const Center(child: LinearProgressIndicator()),
       ),
     );

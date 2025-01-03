@@ -80,24 +80,39 @@ class SettingsBody extends ConsumerWidget {
             borderRadius: borderRadius,
             child: Column(
               children: [
-                SettingsTile(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(AppRoutes.cartScreen);
-                  },
-                  icon: const Icon(
-                    CupertinoIcons.cart,
-                    color: AppColors.brilliantAzure,
+                ...[
+                  SettingsTile(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.cartScreen);
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.cart,
+                      color: AppColors.brilliantAzure,
+                    ),
+                    titleText: 'Cart',
                   ),
-                  titleText: 'Cart',
-                ),
-                SettingsTile(
-                  onTap: () {},
-                  icon: const Icon(
-                    CupertinoIcons.heart,
-                    color: AppColors.purpleX11,
+                  SettingsTile(
+                    onTap: () {
+                      Navigator.of(context)
+                          .pushNamed(AppRoutes.favoritesScreen);
+                    },
+                    icon: const Icon(
+                      CupertinoIcons.heart,
+                      color: AppColors.purpleX11,
+                    ),
+                    titleText: 'Favorite',
                   ),
-                  titleText: 'Favorite',
-                ),
+                  SettingsTile(
+                    onTap: () {
+                      Navigator.of(context).pushNamed(AppRoutes.ordersScreen);
+                    },
+                    icon: const Icon(
+                      Icons.receipt_long,
+                      color: AppColors.chromeYellow,
+                    ),
+                    titleText: 'Orders',
+                  ),
+                ],
                 SettingsTile(
                   onTap: () {},
                   icon: const Icon(

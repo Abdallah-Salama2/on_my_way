@@ -27,4 +27,7 @@ class ApiConstants {
   static const getCart = "/cart";
   static const updateCart = "/cart";
   static String deleteCartItem(int id) => "/cart/$id";
+
+  static const getOrders = '/orders';
+  static const createOrder = '/orders';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_my_way/features/cart/data/models/cart_entity.dart';
 import 'package:on_my_way/features/cart/data/repos/cart_repo.dart';
+import 'package:on_my_way/features/cart/data/repos/orders_repo.dart';
 
 import '../../../core/errors/exceptions.dart';
 
@@ -59,6 +60,16 @@ class CartProvider extends AsyncNotifier<CartEntity> {
         itemId: itemId,
       );
 
+      return initCart();
+    });
+  }
+
+  Future<void> createOrder() async {
+    final ordersRepo = ref.read(ordersRepoProvider);
+
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await ordersRepo.createOrder();
       return initCart();
     });
   }

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_my_way/core/styles/app_colors.dart';
 import 'package:on_my_way/core/utils/app_routes.dart';
+import 'package:on_my_way/features/cart/ui/widgets/orders_body_widget.dart';
 import 'package:on_my_way/features/go_food/ui/go_food_body.dart';
 import 'package:on_my_way/features/go_ride/providers/go_ride_state.dart';
 import 'package:on_my_way/features/home/data/models/home_state.dart';
@@ -43,7 +44,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           null => const Center(child: Text('Choose a service')),
         },
         const ChooseServiceScreen(),
-        const Center(child: Text('Activity')),
+        const OrdersBodyWidget(),
         const SettingsBody(),
       ][selectedIndex],
       bottomNavigationBar: (goRideState.rideState != RideState.choosingFrom &&

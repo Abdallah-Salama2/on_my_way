@@ -1,10 +1,14 @@
+
+
 import 'package:dartz/dartz.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/errors/failure.dart';
 import '../../../../core/shared/helpers/dio_helper.dart';
 import '../../../../core/utils/api_constants.dart';
 import '../../../authentication/providers/auth_provider.dart';
+import '../models/favorites_entity.dart';
 
 final favoritesRepoProvider = Provider.autoDispose(
   (ref) => FavoritesRepo(ref),
@@ -32,6 +36,25 @@ class FavoritesRepo {
           response.data['message'].toString().contains("Added");
 
       return Right(newFavoriteStats);
+    } else {
+      return Left(ServerFailure(response.data['message']));
+    }
+  }
+
+  Future<Either<Failure, FavoritesEntity>> getFavorites({
+    required String mainType,
+  }) async {
+    final response = await DioHelper.getData(
+      path: ApiConstants.getFavorites,
+      token: token,
+      body: {
+        "type": "item",
+        "main_type": mainType,
+      },
+    );
+    if (response.data['success'] == true) {
+      debugPrint(response.data.toString());
+      return Right(FavoritesEntity.fromJson(response.data));
     } else {
       return Left(ServerFailure(response.data['message']));
     }
