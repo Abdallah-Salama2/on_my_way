@@ -31,6 +31,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
+    final authState = ref.watch(authStateProvider);
     final authNotifier = ref.read(authStateProvider.notifier);
 
     return Scaffold(
@@ -138,7 +139,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
                       //
                       ElevatedButton(
-                        onPressed: () async {
+                        onPressed:authState.requestState.isLoading ? null : () async {
                           final nav = Navigator.of(context);
                           await authNotifier.logIn(
                             email: emailController.text,

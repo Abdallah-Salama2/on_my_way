@@ -53,6 +53,9 @@ class RestaurantScreen extends ConsumerWidget {
                     child: Image.network(
                       data.restaurantItemsEntity.restaurant.imageUrl,
                       fit: BoxFit.cover,
+                      errorBuilder: (context, error, stackTrace) {
+                        return const Placeholder();
+                      },
                     ),
                   ),
                 ),

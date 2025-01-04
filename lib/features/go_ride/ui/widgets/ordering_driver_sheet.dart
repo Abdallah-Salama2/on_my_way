@@ -78,7 +78,7 @@ class OrderingDriverSheet extends ConsumerWidget {
                       for (final Driver driver
                           in goRideState.driversEntity?.drivers ?? [])
                         ColoredBox(
-                          color: driver.id == goRideState.rideId
+                          color: driver.id == goRideState.driverId
                               ? AppColors.peachPuff
                               : Colors.white,
                           child: ListTile(
@@ -161,7 +161,7 @@ class OrderingDriverSheet extends ConsumerWidget {
                               ),
                               onPressed: goRideState.requestState.isLoading ||
                                       goRideState.requestState.hasError ||
-                                      goRideState.rideId == -1
+                                      goRideState.driverId == -1
                                   ? null
                                   : () {
                                       goRideNotifier.createRide();
@@ -183,7 +183,7 @@ class OrderingDriverSheet extends ConsumerWidget {
                                             .firstWhereOrNull(
                                               (element) =>
                                                   element.id ==
-                                                  goRideState.rideId,
+                                                  goRideState.driverId,
                                             )
                                             ?.price
                                             .toString() ??

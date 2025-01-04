@@ -34,6 +34,9 @@ class RestaurantCard extends ConsumerWidget {
             child: Image.network(
               restaurant.imageUrl,
               fit: BoxFit.cover,
+              errorBuilder: (context, error, stackTrace) {
+                return const Placeholder();
+              },
             ),
           ),
           const SizedBox(height: 7),

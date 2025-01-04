@@ -23,6 +23,7 @@ class CartScreen extends ConsumerWidget {
       backgroundColor: AppColors.antiFlashWhite,
       body: cartAsyncData.when(
         skipLoadingOnReload: true,
+        skipError: true,
         data: (cartData) {
           return CustomScrollView(
             slivers: [

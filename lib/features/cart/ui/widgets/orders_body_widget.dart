@@ -118,7 +118,7 @@ class _OrdersBodyWidgetState extends ConsumerState<OrdersBodyWidget>
             );
           },
           loading: () => const Center(
-            child: CircularProgressIndicator(),
+            child: LinearProgressIndicator(),
           ),
         )
       ],

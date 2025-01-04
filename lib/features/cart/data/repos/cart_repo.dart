@@ -11,7 +11,7 @@ final cartRepoProvider = Provider<CartRepo>(CartRepo.new, name: "Cart Repo");
 
 class CartRepo {
   final Ref ref;
-  late final token = ref.read(authStateProvider).authEntity?.data.token;
+  late final token = ref.watch(authStateProvider).authEntity?.data.token;
 
   CartRepo(this.ref);
 

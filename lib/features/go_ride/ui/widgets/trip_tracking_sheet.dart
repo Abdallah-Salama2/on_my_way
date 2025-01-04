@@ -18,7 +18,7 @@ class TripTrackingSheet extends ConsumerWidget {
 
     final driverData = goRideState.driversEntity?.drivers.firstWhereOrNull(
       (element) {
-        return goRideState.rideId == element.id;
+        return goRideState.driverId == element.id;
       },
     );
     return Align(

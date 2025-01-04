@@ -16,7 +16,6 @@ void main() async {
 
   // Initialize Hive and Hive Flutter
   await Hive.initFlutter();
-  // HiveHelper.clearAllData();
   await HiveHelper.init();
 
   DioHelper.init();

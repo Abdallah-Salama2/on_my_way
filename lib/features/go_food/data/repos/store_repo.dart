@@ -15,13 +15,13 @@ final storeRepoProvider = Provider.autoDispose(
 
 class StoreRepo {
   final Ref ref;
-  late final token = ref.read(authStateProvider).authEntity?.data.token;
 
   StoreRepo(this.ref);
 
   Future<Either<Failure, RestaurantsEntity>> getStores({
     required int type,
   }) async {
+    final token = ref.read(authStateProvider).authEntity?.data.token;
     final response = await DioHelper.getData(
       path: ApiConstants.getStores,
       token: token,
@@ -37,6 +37,7 @@ class StoreRepo {
   Future<Either<Failure, RestaurantItemsEntity>> showSingleStore({
     required int id,
   }) async {
+    final token = ref.read(authStateProvider).authEntity?.data.token;
     final response = await DioHelper.getData(
       path: ApiConstants.showSingleStores(id.toString()),
       token: token,

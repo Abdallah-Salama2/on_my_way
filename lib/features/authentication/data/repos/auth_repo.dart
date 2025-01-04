@@ -146,7 +146,7 @@ class AuthRepo {
     );
 
     // log(data.toString());
-    if (data.toString() == "{}") {
+    if (data.toString() == "{}" || data == null) {
       return null;
     }
     final encodedData = jsonEncode(data);

@@ -5,6 +5,7 @@ import 'package:on_my_way/core/shared/widgets/dynamic_form_field.dart';
 import 'package:on_my_way/core/styles/app_colors.dart';
 import 'package:on_my_way/core/utils/enums.dart';
 import 'package:on_my_way/features/authentication/providers/auth_provider.dart';
+import 'package:on_my_way/features/cart/providers/cart_provider.dart';
 import 'package:on_my_way/features/cart/ui/widgets/cart_button_widget.dart';
 
 import 'package:on_my_way/features/go_food/providers/categories/categories_provider.dart';
@@ -48,10 +49,8 @@ class _GoFoodBodyState extends ConsumerState<GoFoodBody> {
 
           ref.invalidate(categoriesProvider);
           ref.invalidate(storesProvider);
-          await Future.wait([
-            ref.read(categoriesProvider.future),
-            ref.read(storesProvider.future),
-          ]);
+          ref.invalidate(cartProvider);
+          
         },
         child: Padding(
           padding: const EdgeInsets.symmetric(

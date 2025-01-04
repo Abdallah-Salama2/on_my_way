@@ -7,7 +7,9 @@ import 'package:on_my_way/core/shared/helpers/ftoast_helper.dart';
 import 'package:on_my_way/core/utils/enums.dart';
 import 'package:on_my_way/features/authentication/data/models/auth_state.dart';
 import 'package:on_my_way/features/authentication/data/repos/auth_repo.dart';
+import 'package:on_my_way/features/cart/providers/orders_provider.dart';
 import 'package:on_my_way/features/go_food/providers/categories/categories_provider.dart';
+import 'package:on_my_way/features/go_food/providers/favorites/favorites_provider.dart';
 import 'package:on_my_way/features/go_food/providers/restaurants/restaurants_provider.dart';
 
 final authStateProvider = NotifierProvider<AuthProvider, AuthState>(
@@ -135,6 +137,8 @@ class AuthProvider extends Notifier<AuthState> {
     ref.invalidateSelf();
     ref.invalidate(categoriesProvider);
     ref.invalidate(storesProvider);
+    ref.invalidate(favoritesProvider);
+    ref.invalidate(ordersProvider);
     log('Cache cleared, logged out successfully');
   }
 

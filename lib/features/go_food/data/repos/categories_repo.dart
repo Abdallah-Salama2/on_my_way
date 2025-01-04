@@ -13,12 +13,12 @@ final categoriesRepoProvider = Provider.autoDispose(
 
 class CategoriesRepo {
   final Ref ref;
-  late final token = ref.read(authStateProvider).authEntity?.data.token;
   CategoriesRepo(this.ref);
 
   Future<Either<Failure, CategoriesEntity>> getCategories({
     required int type,
   }) async {
+    final token = ref.read(authStateProvider).authEntity?.data.token;
     final response = await DioHelper.getData(
       path: ApiConstants.getCategories,
       token: token,
@@ -34,6 +34,7 @@ class CategoriesRepo {
   Future<Either<Failure, CategoryItemsEntity>> showSingleCategory({
     required int id,
   }) async {
+    final token = ref.read(authStateProvider).authEntity?.data.token;
     final response = await DioHelper.getData(
       path: ApiConstants.showSingleCategories(id.toString()),
       token: token,

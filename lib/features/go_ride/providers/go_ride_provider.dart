@@ -50,7 +50,7 @@ class GoRideStateProvider extends Notifier<GoRideState> {
           state = state.copyWith(
             requestState: RequestState.loaded,
             rideState: RideState.orderingDriver,
-            rideId: -1,
+            driverId: -1,
             message: r,
           );
         },
@@ -71,10 +71,10 @@ class GoRideStateProvider extends Notifier<GoRideState> {
       final result = await _ridesRepo.createRide(
         dropOffLocation: state.startPlace!,
         pickUpLocation: state.endPlace!,
-        driverId: state.rideId,
+        driverId: state.driverId,
         fare: state.driversEntity!.drivers
             .firstWhereOrNull(
-              (element) => element.id == state.rideId,
+              (element) => element.id == state.driverId,
             )!
             .price,
         token: _authState.authEntity!.data.token,
@@ -94,7 +94,6 @@ class GoRideStateProvider extends Notifier<GoRideState> {
             rideId: r,
             rideState: RideState.orderedDriver,
           );
-          
         },
       );
     } catch (e) {
@@ -217,7 +216,7 @@ class GoRideStateProvider extends Notifier<GoRideState> {
   }
 
   void selectDriver(int id) {
-    state = state.copyWith(rideId: id);
+    state = state.copyWith(driverId: id);
   }
 
   void initializeMapController(MapController mapController) {
