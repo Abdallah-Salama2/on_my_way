@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_my_way/core/styles/app_colors.dart';
 import 'package:on_my_way/core/utils/app_routes.dart';
+import 'package:on_my_way/core/utils/enums.dart';
 import 'package:on_my_way/features/authentication/providers/auth_provider.dart';
+import 'package:on_my_way/features/home/providers/home_state_provider.dart';
 import 'package:on_my_way/features/settings/ui/widgets/settings_tile.dart';
 
 /// [SettingsBody] is not called a screen because it's not a scaffold
@@ -18,6 +20,7 @@ class SettingsBody extends ConsumerWidget {
     final borderRadius = BorderRadius.circular(16);
     final textTheme = Theme.of(context).textTheme;
 
+    final homeState = ref.watch(homeStateProvider);
     final profileData = ref.read(authStateProvider).authEntity?.data.user;
     final authNotifier = ref.read(authStateProvider.notifier);
     return SafeArea(
@@ -80,7 +83,7 @@ class SettingsBody extends ConsumerWidget {
             borderRadius: borderRadius,
             child: Column(
               children: [
-                ...[
+                if (homeState.selectedServiceType!.isEcommerce) ...[
                   SettingsTile(
                     onTap: () {
                       Navigator.of(context).pushNamed(AppRoutes.cartScreen);
@@ -102,17 +105,17 @@ class SettingsBody extends ConsumerWidget {
                     ),
                     titleText: 'Favorite',
                   ),
-                  SettingsTile(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(AppRoutes.ordersScreen);
-                    },
-                    icon: const Icon(
-                      Icons.receipt_long,
-                      color: AppColors.chromeYellow,
-                    ),
-                    titleText: 'Orders',
-                  ),
                 ],
+                SettingsTile(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(AppRoutes.ordersScreen);
+                  },
+                  icon: const Icon(
+                    Icons.receipt_long,
+                    color: AppColors.chromeYellow,
+                  ),
+                  titleText: 'Orders',
+                ),
                 SettingsTile(
                   onTap: () {},
                   icon: const Icon(

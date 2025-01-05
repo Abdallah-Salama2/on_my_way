@@ -30,4 +30,6 @@ class ApiConstants {
 
   static const getOrders = '/orders';
   static const createOrder = '/orders';
+  static String reorder(int id) => '/orders/$id/reorder';
+  static String deleteOrder(int id) => '/orders/$id/cancel';
 }

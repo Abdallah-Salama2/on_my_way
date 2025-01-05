@@ -5,12 +5,14 @@ class Category extends Equatable {
   final String description;
   final int id;
   final int typeId;
+  final String imageUrl;
 
   const Category({
     required this.name,
-    this.description = "",
-    this.id = 0,
-    this.typeId = 0,
+    required this.description,
+    required this.id,
+    required this.typeId,
+    required this.imageUrl,
   });
 
   factory Category.fromJson(Map<String, dynamic> json) => Category(
@@ -18,6 +20,7 @@ class Category extends Equatable {
         description: json['description'],
         id: json['id'],
         typeId: json['type_id'],
+        imageUrl: json['image_url']
       );
 
   @override

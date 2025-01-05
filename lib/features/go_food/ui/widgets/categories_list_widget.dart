@@ -66,15 +66,16 @@ class CategoriesListWidget extends ConsumerWidget {
                             AppColors.boxShadowBlack26,
                           ],
                         ),
-                        child: DecoratedBox(
+                        child: Container(
+                          clipBehavior: Clip.antiAlias,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(16),
                             color: AppColors.cadetGrey,
                           ),
-                          // child: Image.network(
-                          //   category.imageUrl,
-                          //   fit: BoxFit.contain,
-                          // ),
+                          child: Image.network(
+                            category.imageUrl,
+                            fit: BoxFit.cover,
+                          ),
                         ),
                       ),
                     ),
@@ -94,7 +95,11 @@ class CategoriesListWidget extends ConsumerWidget {
       ),
       loading: () => const SliverToBoxAdapter(
         child: SizedBox(
-            height: 160, child: Center(child: LinearProgressIndicator())),
+          height: 160,
+          child: Center(
+            child: LinearProgressIndicator(),
+          ),
+        ),
       ),
     );
   }

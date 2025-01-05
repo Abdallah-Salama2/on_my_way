@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:on_my_way/core/utils/enums.dart';
 
 import '../../../core/shared/widgets/back_button.dart';
 import '../../../core/shared/widgets/dynamic_form_field.dart';
@@ -27,7 +28,7 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final authNotifier = ref.read(authStateProvider.notifier);
-
+    final authState = ref.watch(authStateProvider);
     return Scaffold(
       backgroundColor: AppColors.antiFlashWhite,
       body: SafeArea(
@@ -86,13 +87,15 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         ),
                         const SizedBox(height: 22),
                         ElevatedButton(
-                          onPressed: () async {
-                            final success = await authNotifier
-                                .sendEmail(emailController.text);
-                            if (success) {
-                              Navigator.of(context).pop();
-                            }
-                          },
+                          onPressed: authState.requestState.isLoading
+                              ? null
+                              : () async {
+                                  final success = await authNotifier
+                                      .sendEmail(emailController.text);
+                                  if (success) {
+                                    Navigator.of(context).pop();
+                                  }
+                                },
                           style: Theme.of(context)
                               .elevatedButtonTheme
                               .style
@@ -101,13 +104,15 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                                   Size.fromHeight(62),
                                 ),
                               ),
-                          child: Text(
-                            'SEND CODE',
-                            style: textTheme.bodyLarge?.copyWith(
-                              fontWeight: FontWeight.w900,
-                              color: Colors.white,
-                            ),
-                          ),
+                          child: authState.requestState.isLoading
+                              ? const CircularProgressIndicator()
+                              : Text(
+                                  'SEND CODE',
+                                  style: textTheme.bodyLarge?.copyWith(
+                                    fontWeight: FontWeight.w900,
+                                    color: Colors.white,
+                                  ),
+                                ),
                         ),
                       ],
                     ),

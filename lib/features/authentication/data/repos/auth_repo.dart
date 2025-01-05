@@ -109,7 +109,8 @@ class AuthRepo {
           "email": email,
         },
       );
-      if (response.data['success'] == true) {
+      
+      if (response.data['message'].toString().contains('success')) {
         return Right(response.data['message']);
       } else {
         return Left(ServerFailure(response.data['message']));

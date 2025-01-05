@@ -1,13 +1,13 @@
 import 'package:equatable/equatable.dart';
 
-class OrderModel extends Equatable {
+class FoodOrderModel extends Equatable {
   final num? orderAmount;
   final DateTime? orderTime;
   final String status;
-  final int? id;
+  final int id;
   final List<OrderItem> items;
 
-  const OrderModel({
+  const FoodOrderModel({
     required this.orderAmount,
     required this.orderTime,
     required this.status,
@@ -15,13 +15,14 @@ class OrderModel extends Equatable {
     required this.items,
   });
 
-  OrderModel copyWith(
-      {num? orderAmount,
-      DateTime? orderTime,
-      String? status,
-      int? id,
-      List<OrderItem>? items}) {
-    return OrderModel(
+  FoodOrderModel copyWith({
+    num? orderAmount,
+    DateTime? orderTime,
+    String? status,
+    int? id,
+    List<OrderItem>? items,
+  }) {
+    return FoodOrderModel(
       orderAmount: orderAmount ?? this.orderAmount,
       orderTime: orderTime ?? this.orderTime,
       status: status ?? this.status,
@@ -30,8 +31,8 @@ class OrderModel extends Equatable {
     );
   }
 
-  factory OrderModel.fromJson(Map<String, dynamic> json) {
-    return OrderModel(
+  factory FoodOrderModel.fromJson(Map<String, dynamic> json) {
+    return FoodOrderModel(
       orderAmount: json["order_amount"] is String
           ? num.parse(json["order_amount"])
           : json["order_amount"],
@@ -59,21 +60,25 @@ class OrderItem extends Equatable {
     required this.itemId,
     required this.quantity,
     required this.price,
+    required this.imageUrl,
   });
 
   final int? itemId;
   final num? quantity;
   final String? price;
+  final String? imageUrl;
 
   OrderItem copyWith({
     int? itemId,
     num? quantity,
     String? price,
+    String? imageUrl,
   }) {
     return OrderItem(
       itemId: itemId ?? this.itemId,
       quantity: quantity ?? this.quantity,
       price: price ?? this.price,
+      imageUrl: imageUrl ?? this.imageUrl,
     );
   }
 
@@ -82,6 +87,7 @@ class OrderItem extends Equatable {
       itemId: json["item_id"],
       quantity: json["quantity"],
       price: json["price"],
+      imageUrl: json["image_url"],
     );
   }
 
@@ -90,5 +96,6 @@ class OrderItem extends Equatable {
         itemId,
         quantity,
         price,
+        imageUrl,
       ];
 }

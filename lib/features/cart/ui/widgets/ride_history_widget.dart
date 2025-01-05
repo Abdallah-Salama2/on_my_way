@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:on_my_way/core/styles/app_colors.dart';
-import 'package:on_my_way/features/cart/data/models/food_order.dart';
+import 'package:on_my_way/features/cart/data/models/ride_order.dart';
 import 'package:on_my_way/features/cart/providers/orders_provider.dart';
 
-class OrderHistoryWidget extends ConsumerWidget {
-  final FoodOrderModel orderModel;
+class RidesHistoryWidget extends ConsumerWidget {
+  final RideOrderModel orderModel;
   final bool isOngoing;
 
-  const OrderHistoryWidget({
+  const RidesHistoryWidget({
     super.key,
     required this.orderModel,
     required this.isOngoing,
@@ -35,10 +35,9 @@ class OrderHistoryWidget extends ConsumerWidget {
                   color: AppColors.cadetGrey,
                   borderRadius: BorderRadius.circular(8),
                 ),
-                child: Image.network(
-                  orderModel.items.first.imageUrl!,
-                  errorBuilder: (context, error, stackTrace) =>
-                      const SizedBox.shrink(),
+                child: const Icon(
+                  Icons.location_on,
+                  color: Colors.white,
                 ),
               ),
               const SizedBox(width: 8),
@@ -66,25 +65,11 @@ class OrderHistoryWidget extends ConsumerWidget {
                     Row(
                       children: [
                         Text(
-                          "${orderModel.orderAmount} EGP",
+                          "${orderModel.fare} EGP",
                           style: textTheme.bodyLarge
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const SizedBox(width: 4),
-                        const SizedBox(
-                          height: 20,
-                          child: VerticalDivider(
-                            color: AppColors.antiFlashWhite,
-                            thickness: 1,
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Text(
-                          "${orderModel.items.length} Items",
-                          style: const TextStyle(
-                            color: AppColors.pumpkinOrange,
-                          ),
-                        )
                       ],
                     )
                   ],
@@ -105,20 +90,21 @@ class OrderHistoryWidget extends ConsumerWidget {
                 ),
               ),
               child: const Text('Cancel'),
-            )
-          else
-            ElevatedButton(
-              onPressed: () {
-                ordersNotifier.reorder(orderModel.id);
-              },
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size.fromHeight(41),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ),
-              child: const Text('Re-order'),
             ),
+
+          // else
+          //   ElevatedButton(
+          //     onPressed: () {
+          //       ordersNotifier.reorder(orderModel.id);
+          //     },
+          //     style: ElevatedButton.styleFrom(
+          //       minimumSize: const Size.fromHeight(41),
+          //       shape: RoundedRectangleBorder(
+          //         borderRadius: BorderRadius.circular(8),
+          //       ),
+          //     ),
+          //     child: const Text('Re-order'),
+          //   ),
           const Divider(),
         ],
       ),

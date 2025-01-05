@@ -27,7 +27,10 @@ class Place extends Equatable {
     return Place(
       name: json['address'],
       displayName: json['address'],
-      position: LatLng(json['latitude'], json['longitude']),
+      position: LatLng(
+        json['latitude'],
+        json['longitude'],
+      ),
     );
   }
 
