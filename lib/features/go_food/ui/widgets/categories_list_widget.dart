@@ -17,6 +17,8 @@ class CategoriesListWidget extends ConsumerWidget {
     return categoriesState.when(
       skipError: true,
       skipLoadingOnReload: true,
+      // skipLoadingOnReload: true, // For state updates from .watch()
+      skipLoadingOnRefresh: false, // For .refresh() and .invalidate()
       data: (categories) {
         final filteredList =
             categories.categoriesEntity.categories.where((category) {

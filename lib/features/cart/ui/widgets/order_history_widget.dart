@@ -40,13 +40,13 @@ class OrderHistoryWidget extends StatelessWidget {
                     Row(
                       children: [
                         Text(
-                          "Order${orderModel.id.toString()}",
+                          "Order#${orderModel.id.toString()}",
                           style: textTheme.bodyLarge
                               ?.copyWith(fontWeight: FontWeight.bold),
                         ),
                         const Spacer(),
                         Text(
-                          orderModel.id.toString(),
+                          "#${orderModel.id.toString()}",
                           style: textTheme.bodyLarge?.copyWith(
                             color: AppColors.pumpkinOrange,
                             decoration: TextDecoration.underline,
@@ -86,42 +86,15 @@ class OrderHistoryWidget extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           if (isOngoing)
-            Row(
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(41),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
-                    onPressed: () {},
-                    child: const Text('Track Order'),
-                  ),
+            ElevatedButton(
+              onPressed: () {},
+              style: ElevatedButton.styleFrom(
+                minimumSize: const Size.fromHeight(41),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(8),
                 ),
-                const Spacer(flex: 1),
-                Expanded(
-                  flex: 3,
-                  child: ElevatedButton(
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: const Size.fromHeight(41),
-                      backgroundColor: AppColors.white,
-                      foregroundColor: AppColors.pumpkinOrange,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(8),
-                        side: const BorderSide(
-                          color: AppColors.pumpkinOrange,
-                          width: 1,
-                        ),
-                      ),
-                    ),
-                    child: const Text('Cancel'),
-                  ),
-                ),
-              ],
+              ),
+              child: const Text('Cancel'),
             )
           else
             ElevatedButton(
@@ -133,7 +106,8 @@ class OrderHistoryWidget extends StatelessWidget {
                 ),
               ),
               child: const Text('Re-order'),
-            )
+            ),
+          const Divider(),
         ],
       ),
     );

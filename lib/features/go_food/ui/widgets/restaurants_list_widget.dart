@@ -13,9 +13,9 @@ class RestaurantsListWidget extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final restaurantsState = ref.watch(storesProvider);
     return restaurantsState.when(
-      skipError: true,
-      // skipLoadingOnReload: true,
-      
+      // skipError: true,
+      // skipLoadingOnReload: true, // For state updates from .watch()
+      skipLoadingOnRefresh: false, // For .refresh() and .invalidate()
       data: (data) {
         final filteredList = data.restaurantsEntity.data.where((category) {
           return category.name

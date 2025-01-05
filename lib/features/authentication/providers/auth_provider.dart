@@ -101,7 +101,7 @@ class AuthProvider extends Notifier<AuthState> {
           state = state.copyWith(
             authEntity: r,
             requestState: RequestState.loaded,
-            authMessage: '',
+            authMessage: r.message,
           );
           cacheAuthEntity();
         },
@@ -142,22 +142,26 @@ class AuthProvider extends Notifier<AuthState> {
     log('Cache cleared, logged out successfully');
   }
 
-  Future<void> sendEmail(String email) async {
+  Future<bool> sendEmail(String email) async {
     state = state.copyWith(requestState: RequestState.loading);
     final result = await _authRepo.sendEmail(email);
 
-    result.fold(
+    return result.fold(
       (l) {
         state = state.copyWith(
           requestState: RequestState.error,
           authMessage: l.message,
         );
+        FtoastHelper.showErrorToast(l.message);
+        return false;
       },
       (r) {
         state = state.copyWith(
           requestState: RequestState.loaded,
           authMessage: r,
         );
+        FtoastHelper.showSuccessToast(r);
+        return true;
       },
     );
   }

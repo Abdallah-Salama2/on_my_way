@@ -12,8 +12,7 @@ class FavoritesScreen extends ConsumerStatefulWidget {
   const FavoritesScreen({super.key});
 
   @override
-  ConsumerState<FavoritesScreen> createState() =>
-      _CategoryItemsScreenState();
+  ConsumerState<FavoritesScreen> createState() => _CategoryItemsScreenState();
 }
 
 class _CategoryItemsScreenState extends ConsumerState<FavoritesScreen> {
@@ -134,7 +133,22 @@ class _CategoryItemsScreenState extends ConsumerState<FavoritesScreen> {
             ],
           );
         },
-        error: (error, stackTrace) =>const Center(child:  Text("Error loading favorites")),
+        error: (error, stackTrace) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text("Error loading favorites"),
+                OutlinedButton(
+                  onPressed: () {
+                    ref.invalidate(favoritesProvider);
+                  },
+                  child: const Text('Retry'),
+                ),
+              ],
+            ),
+          );
+        },
         loading: () => const Center(child: LinearProgressIndicator()),
       ),
     );

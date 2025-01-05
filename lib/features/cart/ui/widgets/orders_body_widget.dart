@@ -59,7 +59,6 @@ class _OrdersBodyWidgetState extends ConsumerState<OrdersBodyWidget>
           ),
         ),
         verticalSpace,
-        verticalSpace,
         TabBar(
           labelColor: AppColors.pumpkinOrange,
           indicatorColor: AppColors.pumpkinOrange,
@@ -86,26 +85,41 @@ class _OrdersBodyWidgetState extends ConsumerState<OrdersBodyWidget>
               child: TabBarView(
                 controller: _tabController,
                 children: [
-                  Column(
-                    children: List.generate(
-                      ongoingList.length,
-                      (index) {
-                        return OrderHistoryWidget(
-                          orderModel: ongoingList[index],
-                          isOngoing: true,
-                        );
-                      },
-                    ),
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      ref.invalidate(ordersProvider);
+                    },
+                    child: ListView(children: [
+                      ...List.generate(
+                        ongoingList.length,
+                        (index) {
+                          return OrderHistoryWidget(
+                            orderModel: ongoingList[index],
+                            isOngoing: true,
+                          );
+                        },
+                      ),
+                      const SizedBox(height: 200),
+                    ]),
                   ),
-                  Column(
-                    children: List.generate(
-                      historyList.length,
-                      (index) {
-                        return OrderHistoryWidget(
-                          orderModel: historyList[index],
-                          isOngoing: false,
-                        );
-                      },
+                  RefreshIndicator(
+                    onRefresh: () async {
+                      ref.invalidate(ordersProvider);
+                    },
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: [
+                        ...List.generate(
+                          historyList.length,
+                          (index) {
+                            return OrderHistoryWidget(
+                              orderModel: historyList[index],
+                              isOngoing: false,
+                            );
+                          },
+                        ),
+                        const SizedBox(height: 200),
+                      ],
                     ),
                   ),
                 ],
@@ -113,8 +127,18 @@ class _OrdersBodyWidgetState extends ConsumerState<OrdersBodyWidget>
             );
           },
           error: (error, stackTrace) {
-            return const Center(
-              child: Text('An error occured'),
+            return Center(
+              child: Column(
+                children: [
+                  const Text('An error occured'),
+                  OutlinedButton(
+                    onPressed: () {
+                      ref.invalidate(ordersProvider);
+                    },
+                    child: const Text('Retry'),
+                  ),
+                ],
+              ),
             );
           },
           loading: () => const Center(

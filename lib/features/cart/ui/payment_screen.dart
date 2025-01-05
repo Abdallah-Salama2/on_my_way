@@ -135,32 +135,34 @@ class PaymentScreen extends ConsumerWidget {
                             : () async {
                                 await ref
                                     .read(cartProvider.notifier)
-                                    .createOrder();
-
-                                AwesomeDialog(
-                                  context: context,
-                                  dialogType: DialogType.success,
-                                  headerAnimationLoop: false,
-                                  animType: AnimType.bottomSlide,
-                                  title: 'Congratulations!',
-                                  desc:
-                                      'You successfully made a payment.\nYou can track it now from your Orders.',
-                                  buttonsTextStyle:
-                                      const TextStyle(color: Colors.black),
-                                  btnOkText: 'Go to Orders',
-                                  dismissOnBackKeyPress: false,
-                                  dismissOnTouchOutside: false,
-                                  btnOkOnPress: () {
-                                    
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil(
-                                      AppRoutes.ordersScreen,
-                                      (route) =>
-                                          route.settings.name ==
-                                          AppRoutes.homeScreen,
-                                    );
+                                    .createOrder()
+                                    .then(
+                                  (value) {
+                                    AwesomeDialog(
+                                      context: context,
+                                      dialogType: DialogType.success,
+                                      headerAnimationLoop: false,
+                                      animType: AnimType.bottomSlide,
+                                      title: 'Congratulations!',
+                                      desc:
+                                          'You successfully made a payment.\nYou can track it now from your Orders.',
+                                      buttonsTextStyle:
+                                          const TextStyle(color: Colors.black),
+                                      btnOkText: 'Go to Orders',
+                                      dismissOnBackKeyPress: false,
+                                      dismissOnTouchOutside: false,
+                                      btnOkOnPress: () {
+                                        Navigator.of(context)
+                                            .pushNamedAndRemoveUntil(
+                                          AppRoutes.ordersScreen,
+                                          (route) =>
+                                              route.settings.name ==
+                                              AppRoutes.homeScreen,
+                                        );
+                                      },
+                                    ).show();
                                   },
-                                ).show();
+                                );
                               },
                         style: ElevatedButton.styleFrom(
                           fixedSize: const Size.fromHeight(62),

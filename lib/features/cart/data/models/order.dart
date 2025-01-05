@@ -32,7 +32,9 @@ class OrderModel extends Equatable {
 
   factory OrderModel.fromJson(Map<String, dynamic> json) {
     return OrderModel(
-      orderAmount: num.parse(json["order_amount"]),
+      orderAmount: json["order_amount"] is String
+          ? num.parse(json["order_amount"])
+          : json["order_amount"],
       orderTime: DateTime.tryParse(json["order_time"] ?? ""),
       status: json["status"],
       id: json["id"],

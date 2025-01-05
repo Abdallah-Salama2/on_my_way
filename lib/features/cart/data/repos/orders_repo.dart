@@ -15,7 +15,7 @@ final ordersRepoProvider =
 
 class OrdersRepo {
   final Ref ref;
-  late final token = ref.read(authStateProvider).authEntity?.data.token;
+  late final token = ref.watch(authStateProvider).authEntity?.data.token;
 
   OrdersRepo(this.ref);
 

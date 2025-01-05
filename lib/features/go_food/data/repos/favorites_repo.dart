@@ -1,7 +1,5 @@
-
-
 import 'package:dartz/dartz.dart';
-import 'package:flutter/foundation.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../core/errors/failure.dart';
@@ -17,7 +15,7 @@ final favoritesRepoProvider = Provider.autoDispose(
 
 class FavoritesRepo {
   final Ref ref;
-  late final token = ref.read(authStateProvider).authEntity?.data.token;
+  late final token = ref.watch(authStateProvider).authEntity?.data.token;
 
   FavoritesRepo(this.ref);
 
@@ -53,7 +51,6 @@ class FavoritesRepo {
       },
     );
     if (response.data['success'] == true) {
-      debugPrint(response.data.toString());
       return Right(FavoritesEntity.fromJson(response.data));
     } else {
       return Left(ServerFailure(response.data['message']));

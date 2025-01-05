@@ -87,7 +87,11 @@ class _ForgotPasswordScreenState extends ConsumerState<ForgotPasswordScreen> {
                         const SizedBox(height: 22),
                         ElevatedButton(
                           onPressed: () async {
-                            authNotifier.sendEmail(emailController.text);
+                            final success = await authNotifier
+                                .sendEmail(emailController.text);
+                            if (success) {
+                              Navigator.of(context).pop();
+                            }
                           },
                           style: Theme.of(context)
                               .elevatedButtonTheme

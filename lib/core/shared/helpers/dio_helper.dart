@@ -9,8 +9,8 @@ class DioHelper {
   static void init() {
     _dio ??= Dio(
       BaseOptions(
-        sendTimeout: const Duration(seconds: 10),
-        connectTimeout: const Duration(seconds: 5),
+        sendTimeout: const Duration(seconds: 15),
+        connectTimeout: const Duration(seconds: 15),
         baseUrl: ApiConstants.baseUrl,
         receiveTimeout: const Duration(
           seconds: 30,
