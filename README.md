@@ -9,7 +9,7 @@ On My Way is an e-commerce application with a combined focus on ride-hailing and
 1. **Clone the Repository:** Clone this repository to your local machine.
 ```
 git clone https://github.com/tux-1/on_my_way
-cd ardent_chat
+cd on_my_way
 ```
 2. **Install Flutter Packages:** Run `flutter pub get` to install all required dependencies.
 3. **Run the Application:**  Start the app with:
